@@ -1,0 +1,20 @@
+.account-container a {
+    color: #79003d;
+    font-weight: bold;
+}
+
+.order-panel__list,
+.review-panel__list,
+.rating-panel__list {
+    margin: 24px 0;
+}
+
+.order-panel__list-item,
+.review-panel__list-item,
+.rating-panel__list-item {
+    margin: 24px 0;
+}
+
+.rating-list__rating-score {
+    font-style: italic;
+}

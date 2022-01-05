@@ -1,0 +1,173 @@
+html {
+    margin: 0;
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+    padding-bottom: 100px;
+    min-height: 100%;
+    /*background: white url("images/mountains.jpg") no-repeat right bottom;*/
+    /*background-size: cover;*/
+    background-color: #fff0f7;
+}
+
+body {
+    font-family: "Poppins";
+}
+
+h1,
+h2,
+h3 {
+    color: rgb(223, 25, 85);
+    font-family: "Sofia";
+    font-weight: bold;
+}
+
+h4,
+h5,
+h6 {
+    color: rgb(0, 0, 0);
+    font-family: "Poppins";
+}
+
+p {
+    font-family: "Poppins";
+}
+
+a {
+    font-family: "Poppins";
+    color: rgb(151, 13, 54);
+    font-weight: bold;
+}
+
+.container-fluid {
+    width: 100%;
+}
+
+#login-text {
+    font-size: 30px;
+    padding: 0px 0px 15px 35px;
+}
+
+#form-parent input {
+    background-color: rgb(255, 255, 255);
+    border: 2px solid rgb(255, 202, 227);
+    border-radius: 4px;
+    margin-top: 4px;
+    padding: 2px;
+}
+
+.panel-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    border: 0;
+    border-radius: 15px;
+    padding: 15px;
+}
+
+.panel,
+.panel-primary {
+    border: 0;
+    border-radius: 10px;
+}
+
+.btn-success,
+.w3-btn,
+.add-cart {
+    color: #fff;
+    background-color: #f03976;
+    border-color: #f03976;
+    border-radius: 10px;
+}
+
+.btn-success:hover,
+.w3-btn:hover,
+.add-cart:hover {
+    color: #fff;
+    background-color: #d42e66;
+    border-color: #d42e66;
+    border-radius: 10px;
+}
+
+.btn-success:active,
+.w3-btn:active,
+.add-cart:active {
+    color: #fff;
+    background-color: #be1f54;
+    border-color: #be1f54;
+    border-radius: 10px;
+}
+
+.btn-success:focus,
+.w3-btn:focus,
+.add-cart:focus {
+    color: #fff;
+    background-color: #be1f54;
+    border-color: #be1f54;
+    border-radius: 10px;
+}
+
+.nav {
+    background-color: white;
+}
+
+.navbar-form .form-control,
+textarea {
+    background-color: rgb(255, 255, 255);
+    border: 2px solid rgb(255, 202, 227);
+    color: rgb(117, 10, 60);
+    border-radius: 8px;
+    width: 400px;
+}
+
+#register-text {
+    font-size: 30px;
+    padding: 0px 0px 15px 35px;
+}
+
+@media (max-width: 768px) {
+    .navbar-form .form-control {
+        width: 100%;
+    }
+}
+
+.navbar .btn-dark {
+    background-color: #ffc7df;
+    color: #920049;
+    font-family: "Poppins";
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+.navbar .btn-dark:hover {
+    background-color: #ff91c1;
+    color: #920049;
+    font-family: "Poppins";
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+.w3-container,
+.w3-white {
+    border-radius: 15px;
+}
+
+.w3-card-2,
+.w3-card-4,
+.w3-example {
+    box-shadow: 0 4px 8px 0 rgba(243, 131, 168, 0.2) ! important;
+}
+
+.w3-text-teal,
+.w3-hover-text-teal:hover {
+    color: #960032!important;
+}
+
+.w3-display-container img {
+    border-radius: 25px;
+    padding: 15px;
+}

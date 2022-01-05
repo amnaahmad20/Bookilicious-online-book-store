@@ -1,0 +1,320 @@
+{% extends 'bookstore/base.html' %} {% block title %}{{ book.title }}{% endblock %} {% load static %} {% block stylesheet %}
+<link rel="stylesheet" href="{% static 'bookstore/css/book-details.css'  %}" />
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto' />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" /> {% endblock %} {% block body %}
+
+
+<!-- Page Container -->
+<div class="w3-content w3-margin-top" style="max-width:1400px;">
+
+    <!-- The Grid -->
+    <div class="w3-row-padding">
+
+        <!-- Left Column -->
+        <div class="w3-third">
+
+            <div class="w3-white w3-text-grey w3-card-4">
+                <div class="w3-display-container">
+                    <img src={{book_img}} style="width:100%" alt="Avatar">
+                    <div class="w3-display-bottomleft w3-container w3-text-black">
+                    </div>
+                </div>
+                <div class="w3-container">
+                    <div>
+                        <p align="center">
+
+
+                            <form id="addtocart" method="post" action="{% url 'bookstore:add_to_cart' book.isbn10 %}">
+                                {% csrf_token %}
+
+                                <button type='submit' value="Add To Cart" class="w3-btn-block add-cart" style="font-family: 'Roboto';" text-align: left>
+                  <i class="fa fa-shopping-cart fa-fw w3-margin-right w3-large w3-text-black"></i> Add To Cart
+                </button>
+                            </form>
+                            <br> {% if messages %}
+                            <ul class="messages w3-text-grey">
+                                {% for message in messages %} {% if message.tags == "error" %}
+                                <script type="text/javascript">
+                                    var elem = document.getElementById("addtocart");
+                                    elem.style.display = "none";
+                                </script>
+                                <i class="fa-fw w3-text-grey"><strong>You already have this item in your cart!</strong></i> {% endif %} {% endfor %}
+                            </ul>
+                            {% endif %}
+
+
+                        </p>
+
+                        <div id="content-left">
+                            <i class="fa fa-barcode fa-fw w3-margin-right w3-large w3-text-teal"></i><strong>ISBN10</strong>
+                        </div>
+                        <div id="content-right">
+                            <i class="fa-fw w3-text-teal" align="right"></i>{{book.isbn10}}
+                        </div>
+
+                        <div id="content-left-no-icon">
+                            <i class="fa-fw w3-margin-right w3-text-teal"></i><strong>ISBN13</strong>
+                        </div>
+                        <div id="content-right">
+                            <i class="fa-fw w3-text-teal" align="right"></i>{{book.isbn13}}
+                        </div>
+
+                        <div id="container-1">
+                            <div id="content-left">
+                                <p><i class="fa fa-book fa-fw w3-margin-right w3-large w3-text-teal"></i><strong>Publisher</strong></p>
+                            </div>
+                            <div id="content-right">
+                                <p><i class="fa-fw w3-text-teal"></i>{{book.publisher}}</p>
+                            </div>
+                        </div>
+
+                        <div id="content-left">
+                            <p><i class="fa fa-calendar fa-fw w3-margin-right w3-large w3-text-teal"></i><strong>Year Published</strong></p>
+                        </div>
+                        <div id="content-right" class="">
+                            <p><i class="fa-fw w3-text-teal"></i>{{book.years}}</p>
+                        </div>
+
+                        <div id="content-left">
+                            <p><i class="fa fa-sort fa-fw w3-margin-right w3-large w3-text-teal"></i><strong>In Stock</strong></p>
+                        </div>
+                        <div id="content-right">
+                            <p><i class="fa-fw w3-text-teal"></i>{{book.num_copies}}</p>
+                        </div>
+                        <div id="content-left">
+                            <p><i class="fa fa-money fa-fw w3-margin-right w3-large w3-text-teal"></i><strong>Price</strong></p>
+                        </div>
+                        <div id="content-right">
+                            <p><i class="fa-fw w3-text-teal"></i>${{book.price}}</p>
+                        </div>
+                        <div id="content-left">
+                            <p><i class="fa fa-file-photo-o fa-fw w3-margin-right w3-large w3-text-teal"></i><strong>Format</strong></p>
+                        </div>
+                        <div id="content-right">
+                            <p><i class="fa-fw w3-text-teal"></i>{{book.book_format}}</p>
+                        </div>
+                    </div>
+
+                </div>
+                <br>
+
+            </div><br>
+
+            <!-- End Left Column -->
+        </div>
+
+        <!-- Right Column -->
+        <div id="div2" class="w3-twothird">
+
+            <div class="w3-container w3-card-2 w3-white w3-margin-bottom">
+                <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-book fa-fw w3-margin-right w3-xxlarge w3-text-dark-grey"></i>{{book.title}}</h2>
+                <div class="w3-container">
+                    <h5 class="w3-opacity"><b>by {{book.author}}</b></h5>
+                    <h6 class="w3-text-teal w3-xlarge w3-section"><i class="fa-fw"></i>Summary: {{book.keyword}}</h6>
+                    <p>
+                        <h6 class="w3-text-grey w3-large" style="display:inline"><i class="fa fa-bar-chart-o fa-fw"></i>Rating &nbsp;</h6>
+
+                        <!-- Rating Stars -->
+
+                        <span class="starRating">
+          	<input id="rating10" type="radio" name="rating" value="10" disabled {% if avg_score == 10 %}checked{%endif%}>
+        	<label for="rating10">10</label>
+          	<input id="rating9" type="radio" name="rating" value="9" disabled {% if avg_score == 9 %}checked{%endif%}>
+        	<label for="rating9">9</label>
+          	<input id="rating8" type="radio" name="rating" value="8" disabled {% if avg_score == 8 %}checked{%endif%}>
+        	<label for="rating8">8</label>
+          	<input id="rating7" type="radio" name="rating" value="7" disabled {% if avg_score == 7 %}checked{%endif%}>
+        	<label for="rating7">7</label>
+          	<input id="rating6" type="radio" name="rating" value="6" disabled {% if avg_score == 6 %}checked{%endif%}>
+        	<label for="rating6">6</label>
+			    <input id="rating5" type="radio" name="rating" value="5" disabled {% if avg_score == 5 %}checked{%endif%}>
+        	<label for="rating5">5</label>
+        	<input id="rating4" type="radio" name="rating" value="4" disabled {% if avg_score == 4 %}checked{%endif%}>
+	        <label for="rating4">4</label>
+	        <input id="rating3" type="radio" name="rating" value="3" disabled {% if avg_score == 3 %}checked{%endif%}>
+	        <label for="rating3">3</label>
+	        <input id="rating2" type="radio" name="rating" value="2" disabled {% if avg_score == 2 %}checked{%endif%}>
+	        <label for="rating2">2</label>
+	        <input id="rating1" type="radio" name="rating" value="1" disabled {% if avg_score == 1 %}checked{%endif%}>
+	        <label for="rating1">1</label>
+		    </span>
+                        <h6 class="w3-text-grey w3-margin-left w3-padding-top" style="display:inline"><i class="fa-fw"></i><strong>{{avg_score}}/10 stars</strong></h6>
+                        |&nbsp;{{no_reviews}} user(s) have rated this book so far {% if avg_score == 0 %}
+                        <p class="w3-text-red"><strong>No users have reviewed this book. Be the first!</strong></p>
+                        {% endif %}
+
+                    </p>
+
+
+                    <!-- End Rating Stars -->
+
+                    <hr>
+                </div>
+
+
+                <div class="w3-container">
+                    <h5 class="w3-opacity"><b>Read the book? Tell us your thoughts!</b></h5>
+
+                    {% if user.is_anonymous %}
+                    <a href="{% url 'bookstore:login'%}?next={% firstof request.path '/' %}">Login to review</a> {% else %} {% if error_message %}
+                    <p class="w3-text-black"><strong>{{ error_message }}</strong></p>
+                    {% endif %} {% if review_success %}
+                    <p class="w3-text-black"><strong>Thank you for your review!</strong></p>
+                    {% endif %} {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %} {% if message.tags == "info" %}
+
+                        <i class="w3-text-red"><strong>Sorry, you have already reviewed this item!</strong></i> {% endif %} {% endfor %}
+                    </ul>
+                    {% endif %}
+                    <!-- Second rating stars -->
+                    <p>
+                        <h6 class="w3-text-grey" style="display:inline"><i class="fa-fw"></i>Rate me: </h6>
+                        <form action="{% url 'bookstore:review' book.isbn10 %}" method="post">
+                            {% csrf_token %}
+                            <span name="r" class="starRating-n">
+            <input id="rating10a" type="radio" name="ratinga" value="10" {% if uscore == 10 %}checked{%endif%}>
+          <label for="rating10a">10</label>
+            <input id="rating9a" type="radio" name="ratinga" value="9" {% if uscore == 9 %}checked{%endif%}>
+          <label for="rating9a">9</label>
+            <input id="rating8a" type="radio" name="ratinga" value="8" {% if uscore == 8 %}checked{%endif%}>
+          <label for="rating8a">8</label>
+            <input id="rating7a" type="radio" name="ratinga" value="7" {% if uscore == 7 %}checked{%endif%}>
+          <label for="rating7a">7</label>
+            <input id="rating6a" type="radio" name="ratinga" value="6" {% if uscore == 6 %}checked{%endif%}>
+          <label for="rating6a">6</label>
+          <input id="rating5a" type="radio" name="ratinga" value="5" {% if uscore == 5 %}checked{%endif%}>
+          <label for="rating5a">5</label>
+          <input id="rating4a" type="radio" name="ratinga" value="4" {% if uscore == 4 %}checked{%endif%}>
+          <label for="rating4a">4</label>
+          <input id="rating3a" type="radio" name="ratinga" value="3" {% if uscore == 3 %}checked{%endif%}>
+          <label for="rating3a">3</label>
+          <input id="rating2a" type="radio" name="ratinga" value="2" {% if uscore == 2 %}checked{%endif%}>
+          <label for="rating2a">2</label>
+          <input id="rating1a" type="radio" name="ratinga" value="1" {% if uscore == 1 %}checked{%endif%}>
+          <label for="rating1a">1</label>
+        </span>
+
+                            <br><br>
+                            <textarea cols="50" rows="5" style="width:100%" name="ureview" placeholder="What do you think of the book?"></textarea>
+                            <br><br>
+
+                            <button type='submit' value="review" class="w3-btn " style="font-family: 'Roboto';" text-align: left><i class="fa-fw w3-large w3-text-black">
+        </i>Submit My Review</button>
+                        </form>
+                    </p>
+                    {% endif %}
+
+                    <!-- End Review -->
+                </div>
+                <br>
+            </div>
+
+
+            <!-- LAST CONTAINER -->
+
+
+            <div class="w3-container w3-card-2 w3-white">
+                <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>See Community Reviews</h2>
+                {% if messages %}
+                <ul class="">
+                    {% for message in messages %} {% if message.tags == "warning" %}
+
+                    <i class="w3-text-red"><strong>{{message}}</strong></i> {% endif %} {% endfor %}
+                </ul>
+                {% endif %}
+                <div class="sort-by">
+                    <p>Sort by:
+                        <a href="{% url 'bookstore:review_filter_newest' book.isbn10 rnum %}">Newest</a> |
+                        <a href="{% url 'bookstore:review_filter_best' book.isbn10 rnum %}">Best</a></p>
+                </div>
+                <p style="display: inline-block">Showing top &nbsp;
+                    <form method="post" {% if sort_newest %} action="{% url 'bookstore:review_filter_newest' book.isbn10 rnum %}" {% else %} action="{% url 'bookstore:review_filter_best' book.isbn10 rnum %}" {% endif %} style="display: inline-block">
+                        {% csrf_token %}
+                        <select onchange="this.form.submit()" class="w3-select review-drop" name="num_review">
+
+            <option disabled selected> </option>
+            <option id='1' value="1" {% if rnum == 1 %}selected{%endif%}>1</option>
+            <option id='5' value="5" {% if rnum == 5 %}selected{%endif%}>5</option>
+            <option id='10' value="10" {% if rnum == 10 %}selected{%endif%}>10</option>
+            <option id='99' value="99" {% if rnum == 99 %}selected{%endif%}>99</option>
+          </select>
+
+                    </form>
+                    review(s)
+                </p>
+                <!--  <p class="dropdown">
+          Showing top
+          <a href="javascript:void(0)" class="drop w3-text-blue" onclick="dropMe()">5</a>
+          <div class="dropdown-content" id="myDropdown">
+            <form id='no_of_reviews' method="post" action="{% url 'bookstore:book_details' book.isbn10 %}">
+            {% csrf_token %}
+            <input type='select' name='rnum' value='1'>
+            <a href="#5" name='rnum' value='5'>5</a>
+            <a href="#10" name='rnum' value='10'>10</a>
+            <a href="#all" name='rnum' value='all'>all</a>
+            </form>
+          </div>
+           reviews
+        <p>
+
+        <script>
+          function dropMe() {
+              document.getElementById("myDropdown").classList.toggle("show");
+          }
+
+          
+
+          // Close the dropdown if the user clicks outside of it
+          window.onclick = function(e) {
+            if (!e.target.matches('.drop')) {
+
+              var dropdowns = document.getElementsByClassName("dropdown-content");
+              for (var d = 0; d < dropdowns.length; d++) {
+                var openDropdown = dropdowns[d];
+                if (openDropdown.classList.contains('show')) {
+                  openDropdown.classList.remove('show');
+                }
+              }
+            }
+
+            
+          }
+        </script>
+         -->
+                <hr>
+                <div id="review-div">
+                    {% for review in reviews %}
+                    <div class="w3-container">
+                        <h5 class="w3-text-green"><b>{{review.login_name.first_name}} {{review.login_name.last_name}} says</b></h5>
+                        <h6 class="w3-text-grey w3-small">On {{review.review_date}}</h6>
+                        <p class="w3-text-grey"><strong>{{review.review_score}}/10 stars</strong></p>
+                        <p class="w3-text-black">{{review.review_text}}</p>
+                        {% for i in review_ratings %} {% if i.rated == review.id %} Average Usefulness: {{i.rating__avg}} {% endif %} {% endfor %}
+                        <form action="{% url 'bookstore:rate_user_review' book.isbn10 review.id %}" method="post">
+                            {% csrf_token %}
+                            <p id="{{review.id}}3" class="w3-text-grey">Did you find this review helpful?
+                                <button name="rate" id="{{review.id}}" value="0" class="w3-btn w3-border w3-round-large w3-white w3-tiny">Useless</button>
+                                <button name="rate" id="{{review.id}}1" value="1" class="w3-btn w3-border w3-round-large w3-white w3-tiny">Useful</button>
+                                <button name="rate" id="{{review.id}}2" value="2" class="w3-btn w3-border w3-round-large w3-white w3-tiny">Very Useful</button>
+                            </p>
+                        </form>
+                        <p></p>
+                        <hr>
+                    </div>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            <!-- End Right Column -->
+        </div>
+
+        <!-- End Grid -->
+    </div>
+
+    <!-- End Page Container -->
+</div>
+
+{% endblock %}

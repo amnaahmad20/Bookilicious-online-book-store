@@ -1,0 +1,15 @@
+{% extends 'bookstore/base.html' %}
+{% block title %}Review Success{% endblock %}
+
+{% block stylesheet %}
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+{% endblock %}
+
+{% block body %}
+
+<h1 class=" w3-text-teal w3-large">Thank you for submitting a review!</h1>
+
+<a class="w3-text-blue" href="{% url 'bookstore:book_details' book.isbn10 %}">Back to book</a>
+
+{% endblock %}
